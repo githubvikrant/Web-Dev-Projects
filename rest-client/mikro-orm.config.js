@@ -7,4 +7,5 @@ module.exports = defineConfig({
     : 'rest-client-db.sqlite',
   entities: [RequestHistory],
   debug: process.env.NODE_ENV !== 'production',
+  ensureDatabase: true,
 }); 

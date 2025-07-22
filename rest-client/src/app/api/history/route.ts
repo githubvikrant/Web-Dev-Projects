@@ -17,6 +17,7 @@ export async function GET(req: NextRequest) {
     const offset = (page - 1) * limit;
 
     const orm = await getORM();
+    await orm.getSchemaGenerator().updateSchema(); // Create or update schema as needed
     const em = orm.em.fork();
     const [items, total] = await em.findAndCount(RequestHistory, {}, {
       orderBy: { createdAt: 'desc' },
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     console.log('Received headers:', data.headers); // Debug log
     const orm = await getORM();
+    await orm.getSchemaGenerator().updateSchema(); // Create or update schema as needed
     const em = orm.em.fork();
     const entry = em.create(RequestHistory, {
       method: data.method,
