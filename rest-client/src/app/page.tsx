@@ -127,67 +127,9 @@ export default function Home() {
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto", fontFamily: "sans-serif", color: '#222' }}>
-      {/* Combined User Manual and Request Examples Section */}
-      <div style={{ background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001', marginBottom: 32, color: '#222' }}>
-        <h2>User Manual</h2>
-        <ol style={{ paddingLeft: 20 }}>
-          <li>Enter the <b>Request URL</b> you want to test.</li>
-          <li>Select the <b>HTTP method</b> (GET, POST, PUT, DELETE).</li>
-          <li>Optionally, add <b>headers</b> (one per line: <code>Key: Value</code>).</li>
-          <li>For POST/PUT, enter the <b>request body</b> (raw JSON or text).</li>
-          <li>Click <b>Send</b> to make the request.</li>
-          <li>The <b>Response</b> section will show the status, headers, and body.</li>
-          <li>All requests and responses are saved in the <b>History</b> section below.</li>
-        </ol>
-        <p style={{ fontSize: 13, color: '#666', marginTop: 16 }}>
-          <b>Note:</b> History is session-based and will reset after a server restart or redeploy.
-        </p>
-        <hr style={{ margin: '24px 0' }} />
-        <h2>API Request Examples</h2>
-        <div style={{ fontSize: 14, marginBottom: 8 }}>
-          <b>Base URL:</b><br/>
-          <code>https://web-dev-projects-l97ov86w8-githubvikrants-projects.vercel.app/api/history</code>
-        </div>
-        <div style={{ marginTop: 12 }}>
-          <b>GET (Fetch History)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`GET /api/history?page=1&limit=10
-Content-Type: application/json`}</pre>
-        </div>
-        <div style={{ marginTop: 12 }}>
-          <b>POST (Create Entry)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`POST /api/history
-Content-Type: application/json
+      
+      
 
-{
-  "method": "POST",
-  "url": "https://example.com/api/data",
-  "requestBody": "{\"param\":\"value\"}",
-  "responseBody": "{\"result\":\"ok\"}",
-  "responseStatus": "200 OK",
-  "headers": "Content-Type: application/json\nAuthorization: Bearer testtoken"
-}`}</pre>
-        </div>
-        <div style={{ marginTop: 12 }}>
-          <b>PUT (Update Entry)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`PUT /api/history
-Content-Type: application/json
-
-{
-  "id": 1,
-  "method": "PUT",
-  "url": "https://example.com/api/data/updated",
-  "requestBody": "{\"param\":\"new value\"}",
-  "responseBody": "{\"result\":\"updated\"}",
-  "responseStatus": "201 Created",
-  "headers": "Content-Type: application/json"
-}`}</pre>
-        </div>
-        <div style={{ marginTop: 12 }}>
-          <b>DELETE (Delete Entry)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`DELETE /api/history?id=1
-Content-Type: application/json`}</pre>
-        </div>
-      </div>
       {/* Main REST Client UI */}
       <div style={{ color: '#222' }}>
         <h1>Minimal REST Client</h1>
@@ -275,6 +217,67 @@ Content-Type: application/json`}</pre>
               </button>
             </div>
           )}
+        </div>
+      </div>
+
+      <div style={{ background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001', marginBottom: 32, color: '#222' }}>
+        <h2>User Manual</h2>
+        <ol style={{ paddingLeft: 20 }}>
+          <li>Enter the <b>Request URL</b> you want to test.</li>
+          <li>Select the <b>HTTP method</b> (GET, POST, PUT, DELETE).</li>
+          <li>Optionally, add <b>headers</b> (one per line: <code>Key: Value</code>).</li>
+          <li>For POST/PUT, enter the <b>request body</b> (raw JSON or text).</li>
+          <li>Click <b>Send</b> to make the request.</li>
+          <li>The <b>Response</b> section will show the status, headers, and body.</li>
+          <li>All requests and responses are saved in the <b>History</b> section below.</li>
+        </ol>
+        <p style={{ fontSize: 13, color: '#666', marginTop: 16 }}>
+          <b>Note:</b> History is session-based and will reset after a server restart or redeploy.
+        </p>
+        <hr style={{ margin: '24px 0' }} />
+        <h2>API Request Examples</h2>
+        <div style={{ fontSize: 14, marginBottom: 8 }}>
+          <b>Base URL:</b><br/>
+          <code>https://web-dev-projects-l97ov86w8-githubvikrants-projects.vercel.app/api/history</code>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <b>GET (Fetch History)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`GET /api/history?page=1&limit=10
+Content-Type: application/json`}</pre>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <b>POST (Create Entry)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`POST /api/history
+Content-Type: application/json
+
+{
+  "method": "POST",
+  "url": "https://example.com/api/data",
+  "requestBody": "{\"param\":\"value\"}",
+  "responseBody": "{\"result\":\"ok\"}",
+  "responseStatus": "200 OK",
+  "headers": "Content-Type: application/json\nAuthorization: Bearer testtoken"
+}`}</pre>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <b>PUT (Update Entry)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`PUT /api/history
+Content-Type: application/json
+
+{
+  "id": 1,
+  "method": "PUT",
+  "url": "https://example.com/api/data/updated",
+  "requestBody": "{\"param\":\"new value\"}",
+  "responseBody": "{\"result\":\"updated\"}",
+  "responseStatus": "201 Created",
+  "headers": "Content-Type: application/json"
+}`}</pre>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <b>DELETE (Delete Entry)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`DELETE /api/history?id=1
+Content-Type: application/json`}</pre>
         </div>
       </div>
     </div>
