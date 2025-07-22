@@ -145,7 +145,7 @@ export default function Home() {
             />
           </div>
           <textarea
-            placeholder="Headers (one per line: Key: Value)"
+            placeholder="Headers (do not use curly braces)"
             value={headers}
             onChange={e => setHeaders(e.target.value)}
             rows={4}
@@ -218,6 +218,12 @@ export default function Home() {
       </div>
       {/* Combined User Manual and Request Examples Section */}
       <div style={{ background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001', marginTop: 48, color: '#222' }}>
+      <hr style={{ margin: '10px 0' }} />
+        <div style={{ fontSize: 14, color: '#111', marginTop: 8 }}>
+          <b>Author:</b> Vikrant Chauhan<br/>
+          <b>Contact:</b> 7618840128
+        </div>
+        <hr style={{ margin: '10px 0' }} />
         <h2>User Manual</h2>
         <ol style={{ paddingLeft: 20 }}>
           <li>Enter the <b>Request URL</b> you want to test.</li>
@@ -231,6 +237,15 @@ export default function Home() {
         <p style={{ fontSize: 13, color: '#666', marginTop: 16 }}>
           <b>Note:</b> History is session-based and will reset after a server restart or redeploy.
         </p>
+        <hr style={{ margin: '24px 0' }} />
+        <h3 style={{ marginTop: 0 }}>Technologies Used</h3>
+        <ul style={{ fontSize: 14, color: '#333', margin: 0, paddingLeft: 20 }}>
+          <li><b>Next.js</b> (React framework for SSR and API routes)</li>
+          <li><b>React</b> (UI library)</li>
+          <li><b>MikroORM</b> (TypeScript ORM for SQLite)</li>
+          <li><b>SQLite</b> (lightweight database)</li>
+          <li><b>Vercel</b> (deployment platform)</li>
+        </ul>
         <hr style={{ margin: '24px 0' }} />
         <h2>API Request Examples</h2>
         <div style={{ fontSize: 14, marginBottom: 8 }}>
