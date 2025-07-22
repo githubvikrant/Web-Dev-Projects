@@ -17,7 +17,11 @@ export async function GET(req: NextRequest) {
     const offset = (page - 1) * limit;
 
     const orm = await getORM();
-    await orm.getSchemaGenerator().updateSchema(); // Create or update schema as needed
+    // Ensure the table exists before querying
+    const tables = await orm.em.getConnection().execute('SELECT name FROM sqlite_master WHERE type="table" AND name="request_history"');
+    if (tables.length === 0) {
+      await orm.getSchemaGenerator().createSchema();
+    }
     const em = orm.em.fork();
     const [items, total] = await em.findAndCount(RequestHistory, {}, {
       orderBy: { createdAt: 'desc' },
@@ -38,7 +42,11 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     console.log('Received headers:', data.headers); // Debug log
     const orm = await getORM();
-    await orm.getSchemaGenerator().updateSchema(); // Create or update schema as needed
+    // Ensure the table exists before inserting
+    const tables = await orm.em.getConnection().execute('SELECT name FROM sqlite_master WHERE type="table" AND name="request_history"');
+    if (tables.length === 0) {
+      await orm.getSchemaGenerator().createSchema();
+    }
     const em = orm.em.fork();
     const entry = em.create(RequestHistory, {
       method: data.method,
