@@ -1,8 +1,9 @@
+const path = require('path');
 const { defineConfig } = require('@mikro-orm/sqlite');
 
 module.exports = defineConfig({
   dbName: 'rest-client-db.sqlite',
-  entities: ['./dist/entities'], // Use compiled JS entities for runtime
-  entitiesTs: ['./src/entities'], // Use TS entities for CLI/migrations
+  entities: [path.join(__dirname, 'dist/entities')],
+  entitiesTs: [path.join(__dirname, 'src/entities')],
   debug: process.env.NODE_ENV !== 'production',
 }); 

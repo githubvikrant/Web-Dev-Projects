@@ -1,9 +1,10 @@
 import { defineConfig } from '@mikro-orm/sqlite';
+import path from 'path';
 
 const config = defineConfig({
   dbName: 'rest-client-db.sqlite',
-  entities: ['./dist/entities'], // Use compiled JS entities for runtime
-  entitiesTs: ['./src/entities'], // Use TS entities for CLI/migrations
+  entities: [path.join(__dirname, '../dist/entities')],
+  entitiesTs: [path.join(__dirname, './entities')],
   debug: process.env.NODE_ENV !== 'production',
 });
 
