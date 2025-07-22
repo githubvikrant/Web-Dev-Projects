@@ -1,10 +1,9 @@
 import { defineConfig } from '@mikro-orm/sqlite';
-import path from 'path';
+import { RequestHistory } from './entities/RequestHistory';
 
 const config = defineConfig({
   dbName: 'rest-client-db.sqlite',
-  entities: [path.join(__dirname, '../dist/entities')],
-  entitiesTs: [path.join(__dirname, './entities')],
+  entities: [RequestHistory], // Pass the class directly
   debug: process.env.NODE_ENV !== 'production',
 });
 
