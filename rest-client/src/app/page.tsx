@@ -128,7 +128,7 @@ export default function Home() {
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto", fontFamily: "sans-serif", color: '#222' }}>
       {/* Main REST Client UI */}
-      <div style={{ color: '#222' }}>
+      <div style={{ color: '#111' }}>
         <h1>Minimal REST Client</h1>
         <form onSubmit={sendRequest} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ display: "flex", gap: 8 }}>
