@@ -126,9 +126,9 @@ export default function Home() {
   }
 
   return (
-    <div style={{ maxWidth: 1200, margin: "2rem auto", fontFamily: "sans-serif", display: 'flex', gap: 32, alignItems: 'flex-start' }}>
-      {/* User Manual Section */}
-      <div style={{ flex: 1, minWidth: 320, background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001' }}>
+    <div style={{ maxWidth: 900, margin: "2rem auto", fontFamily: "sans-serif", color: '#222' }}>
+      {/* Combined User Manual and Request Examples Section */}
+      <div style={{ background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001', marginBottom: 32, color: '#222' }}>
         <h2>User Manual</h2>
         <ol style={{ paddingLeft: 20 }}>
           <li>Enter the <b>Request URL</b> you want to test.</li>
@@ -142,22 +142,20 @@ export default function Home() {
         <p style={{ fontSize: 13, color: '#666', marginTop: 16 }}>
           <b>Note:</b> History is session-based and will reset after a server restart or redeploy.
         </p>
-      </div>
-      {/* Request Examples Section */}
-      <div style={{ flex: 1, minWidth: 320, background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001' }}>
+        <hr style={{ margin: '24px 0' }} />
         <h2>API Request Examples</h2>
-        <div style={{ fontSize: 14 }}>
+        <div style={{ fontSize: 14, marginBottom: 8 }}>
           <b>Base URL:</b><br/>
           <code>https://web-dev-projects-l97ov86w8-githubvikrants-projects.vercel.app/api/history</code>
         </div>
-        <div style={{ marginTop: 16 }}>
+        <div style={{ marginTop: 12 }}>
           <b>GET (Fetch History)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`GET /api/history?page=1&limit=10
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`GET /api/history?page=1&limit=10
 Content-Type: application/json`}</pre>
         </div>
-        <div style={{ marginTop: 16 }}>
+        <div style={{ marginTop: 12 }}>
           <b>POST (Create Entry)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`POST /api/history
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`POST /api/history
 Content-Type: application/json
 
 {
@@ -169,9 +167,9 @@ Content-Type: application/json
   "headers": "Content-Type: application/json\nAuthorization: Bearer testtoken"
 }`}</pre>
         </div>
-        <div style={{ marginTop: 16 }}>
+        <div style={{ marginTop: 12 }}>
           <b>PUT (Update Entry)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`PUT /api/history
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`PUT /api/history
 Content-Type: application/json
 
 {
@@ -184,14 +182,14 @@ Content-Type: application/json
   "headers": "Content-Type: application/json"
 }`}</pre>
         </div>
-        <div style={{ marginTop: 16 }}>
+        <div style={{ marginTop: 12 }}>
           <b>DELETE (Delete Entry)</b>
-          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`DELETE /api/history?id=1
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13, margin: 0 }}>{`DELETE /api/history?id=1
 Content-Type: application/json`}</pre>
         </div>
       </div>
       {/* Main REST Client UI */}
-      <div style={{ flex: 2, minWidth: 400 }}>
+      <div style={{ color: '#222' }}>
         <h1>Minimal REST Client</h1>
         <form onSubmit={sendRequest} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ display: "flex", gap: 8 }}>
