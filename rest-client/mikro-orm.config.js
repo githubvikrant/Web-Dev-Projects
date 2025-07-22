@@ -1,10 +1,7 @@
-const { SqliteDriver } = require('@mikro-orm/sqlite');
-const { defineConfig } = require('@mikro-orm/core');
+const { defineConfig } = require('@mikro-orm/sqlite');
 
 module.exports = defineConfig({
-  driver: SqliteDriver,
   dbName: 'rest-client-db.sqlite',
-  entities: ['./dist/entities'],
-  entitiesTs: ['./src/entities'],
+  entities: ['./src/entities'], // Use TS entities for both runtime and CLI
   debug: process.env.NODE_ENV !== 'production',
 }); 
