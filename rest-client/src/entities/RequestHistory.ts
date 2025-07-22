@@ -1,6 +1,6 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
 
-@Entity()
+@Entity({ tableName: 'request_history' })
 export class RequestHistory {
   @PrimaryKey()
   id!: number;
