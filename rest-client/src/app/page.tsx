@@ -127,9 +127,6 @@ export default function Home() {
 
   return (
     <div style={{ maxWidth: 900, margin: "2rem auto", fontFamily: "sans-serif", color: '#222' }}>
-      
-      
-
       {/* Main REST Client UI */}
       <div style={{ color: '#222' }}>
         <h1>Minimal REST Client</h1>
@@ -219,8 +216,8 @@ export default function Home() {
           )}
         </div>
       </div>
-
-      <div style={{ background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001', marginBottom: 32, color: '#222' }}>
+      {/* Combined User Manual and Request Examples Section */}
+      <div style={{ background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001', marginTop: 48, color: '#222' }}>
         <h2>User Manual</h2>
         <ol style={{ paddingLeft: 20 }}>
           <li>Enter the <b>Request URL</b> you want to test.</li>
