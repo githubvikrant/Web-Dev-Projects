@@ -126,92 +126,158 @@ export default function Home() {
   }
 
   return (
-    <div style={{ maxWidth: 800, margin: "2rem auto", fontFamily: "sans-serif" }}>
-      <h1>Minimal REST Client</h1>
-      <form onSubmit={sendRequest} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <select value={method} onChange={e => setMethod(e.target.value)}>
-            {HTTP_METHODS.map(m => <option key={m}>{m}</option>)}
-          </select>
-          <input
-            type="text"
-            placeholder="Request URL"
-            value={url}
-            onChange={e => setUrl(e.target.value)}
-            style={{ flex: 1 }}
-            required
-          />
+    <div style={{ maxWidth: 1200, margin: "2rem auto", fontFamily: "sans-serif", display: 'flex', gap: 32, alignItems: 'flex-start' }}>
+      {/* User Manual Section */}
+      <div style={{ flex: 1, minWidth: 320, background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001' }}>
+        <h2>User Manual</h2>
+        <ol style={{ paddingLeft: 20 }}>
+          <li>Enter the <b>Request URL</b> you want to test.</li>
+          <li>Select the <b>HTTP method</b> (GET, POST, PUT, DELETE).</li>
+          <li>Optionally, add <b>headers</b> (one per line: <code>Key: Value</code>).</li>
+          <li>For POST/PUT, enter the <b>request body</b> (raw JSON or text).</li>
+          <li>Click <b>Send</b> to make the request.</li>
+          <li>The <b>Response</b> section will show the status, headers, and body.</li>
+          <li>All requests and responses are saved in the <b>History</b> section below.</li>
+        </ol>
+        <p style={{ fontSize: 13, color: '#666', marginTop: 16 }}>
+          <b>Note:</b> History is session-based and will reset after a server restart or redeploy.
+        </p>
+      </div>
+      {/* Request Examples Section */}
+      <div style={{ flex: 1, minWidth: 320, background: '#f9f9f9', borderRadius: 8, padding: 24, boxShadow: '0 2px 8px #0001' }}>
+        <h2>API Request Examples</h2>
+        <div style={{ fontSize: 14 }}>
+          <b>Base URL:</b><br/>
+          <code>https://web-dev-projects-l97ov86w8-githubvikrants-projects.vercel.app/api/history</code>
         </div>
-        <textarea
-          placeholder="Headers (one per line: Key: Value)"
-          value={headers}
-          onChange={e => setHeaders(e.target.value)}
-          rows={2}
-        />
-        { ["POST", "PUT"].includes(method) && (
+        <div style={{ marginTop: 16 }}>
+          <b>GET (Fetch History)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`GET /api/history?page=1&limit=10
+Content-Type: application/json`}</pre>
+        </div>
+        <div style={{ marginTop: 16 }}>
+          <b>POST (Create Entry)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`POST /api/history
+Content-Type: application/json
+
+{
+  "method": "POST",
+  "url": "https://example.com/api/data",
+  "requestBody": "{\"param\":\"value\"}",
+  "responseBody": "{\"result\":\"ok\"}",
+  "responseStatus": "200 OK",
+  "headers": "Content-Type: application/json\nAuthorization: Bearer testtoken"
+}`}</pre>
+        </div>
+        <div style={{ marginTop: 16 }}>
+          <b>PUT (Update Entry)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`PUT /api/history
+Content-Type: application/json
+
+{
+  "id": 1,
+  "method": "PUT",
+  "url": "https://example.com/api/data/updated",
+  "requestBody": "{\"param\":\"new value\"}",
+  "responseBody": "{\"result\":\"updated\"}",
+  "responseStatus": "201 Created",
+  "headers": "Content-Type: application/json"
+}`}</pre>
+        </div>
+        <div style={{ marginTop: 16 }}>
+          <b>DELETE (Delete Entry)</b>
+          <pre style={{ background: '#f4f4f4', padding: 8, borderRadius: 4, fontSize: 13 }}>{`DELETE /api/history?id=1
+Content-Type: application/json`}</pre>
+        </div>
+      </div>
+      {/* Main REST Client UI */}
+      <div style={{ flex: 2, minWidth: 400 }}>
+        <h1>Minimal REST Client</h1>
+        <form onSubmit={sendRequest} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", gap: 8 }}>
+            <select value={method} onChange={e => setMethod(e.target.value)}>
+              {HTTP_METHODS.map(m => <option key={m}>{m}</option>)}
+            </select>
+            <input
+              type="text"
+              placeholder="Request URL"
+              value={url}
+              onChange={e => setUrl(e.target.value)}
+              style={{ flex: 1 }}
+              required
+            />
+          </div>
           <textarea
-            placeholder="Request body (raw)"
-            value={body}
-            onChange={e => setBody(e.target.value)}
+            placeholder="Headers (one per line: Key: Value)"
+            value={headers}
+            onChange={e => setHeaders(e.target.value)}
             rows={4}
           />
-        )}
-        <button type="submit" disabled={loading} style={{ width: 120 }}>
-          {loading ? "Sending..." : "Send"}
-        </button>
-      </form>
+          { ["POST", "PUT"].includes(method) && (
+            <textarea
+              placeholder="Request body (raw)"
+              value={body}
+              onChange={e => setBody(e.target.value)}
+              rows={6}
+            />
+          )}
+          <button type="submit" disabled={loading} style={{ width: 120 }}>
+            {loading ? "Sending..." : "Send"}
+          </button>
+        </form>
 
-      {/* Response Section */}
-      <div ref={responseSectionRef} style={{ marginTop: 24, padding: 16, border: "1px solid #ccc", borderRadius: 4, background: "#fff", color: "#111" }}>
-        <h2 style={{ color: '#222' }}>Response</h2>
-        {responseError && <div style={{ color: "#b00020" }}>{responseError}</div>}
-        {response ? (
-          <>
-            <div>Status: <b style={{ color: '#005a00' }}>{response.status} {response.statusText}</b></div>
-            <details>
-              <summary style={{ color: '#333' }}>Headers</summary>
-              <pre style={{ whiteSpace: "pre-wrap", color: '#222' }}>{response.headers.map(([k, v]) => `${k}: ${v}`).join("\n")}</pre>
-            </details>
+        {/* Response Section */}
+        <div ref={responseSectionRef} style={{ marginTop: 24, padding: 16, border: "1px solid #ccc", borderRadius: 4, background: "#fff", color: "#111" }}>
+          <h2 style={{ color: '#222' }}>Response</h2>
+          {responseError && <div style={{ color: "#b00020" }}>{responseError}</div>}
+          {response ? (
+            <>
+              <div>Status: <b style={{ color: '#005a00' }}>{response.status} {response.statusText}</b></div>
+              <details>
+                <summary style={{ color: '#333' }}>Headers</summary>
+                <pre style={{ whiteSpace: "pre-wrap", color: '#222' }}>{response.headers.map(([k, v]) => `${k}: ${v}`).join("\n")}</pre>
+              </details>
+              <div style={{ marginTop: 8 }}>
+                <b style={{ color: '#333' }}>Body:</b>
+                <pre style={{ background: "#f4f4f4", color: '#111', padding: 8, borderRadius: 4, maxHeight: 200, overflow: "auto" }}>{response.body}</pre>
+              </div>
+            </>
+          ) : (
+            <div style={{ color: "#888" }}>No response yet.</div>
+          )}
+        </div>
+
+        {/* History Section */}
+        <div style={{ marginTop: 32, maxHeight: 300, overflowY: 'auto', border: '1px solid #ccc', borderRadius: 4, background: '#fff', padding: 16, color: '#111' }}>
+          <h2>History</h2>
+          {historyError && <div style={{ color: 'red' }}>{historyError}</div>}
+          {(!history || history.length === 0) ? (
+            <div style={{ color: "#888" }}>No history yet.</div>
+          ) : (
+            <ul style={{ listStyle: "none", padding: 0 }}>
+              {history.map((h, i) => (
+                <li key={h.id} style={{ marginBottom: 12, padding: 8, border: "1px solid #eee", borderRadius: 4 }}>
+                  <div><b style={{ color: '#005a00' }}>{h.method}</b> <span style={{ color: "#222" }}>{h.url}</span></div>
+                  {/* Robustly display headers, show N/A if empty or whitespace */}
+                  <div style={{ fontSize: 12, color: "#444" }}>
+                    Headers: <pre style={{ display: 'inline', background: '#f4f4f4', padding: '2px 4px', borderRadius: '2px' }}>{typeof h.headers === 'string' && h.headers.trim() ? h.headers : 'N/A'}</pre>
+                  </div>
+                  <div style={{ fontSize: 12, color: "#444" }}>Request Body: <pre style={{ display: 'inline', background: '#f4f4f4', padding: '2px 4px', borderRadius: '2px' }}>{h.requestBody || 'N/A'}</pre></div>
+                  <div style={{ fontSize: 12, color: "#444" }}>Status: {h.responseStatus}</div>
+                  <div style={{ fontSize: 12, color: "#444" }}>{new Date(h.createdAt).toLocaleString()}</div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {/* Lazy Load Button */}
+          {hasMore && !historyError && (
             <div style={{ marginTop: 8 }}>
-              <b style={{ color: '#333' }}>Body:</b>
-              <pre style={{ background: "#f4f4f4", color: '#111', padding: 8, borderRadius: 4, maxHeight: 200, overflow: "auto" }}>{response.body}</pre>
+              <button onClick={() => fetchHistory(page + 1, true)} disabled={loading}>
+                {loading ? 'Loading...' : 'Load More'}
+              </button>
             </div>
-          </>
-        ) : (
-          <div style={{ color: "#888" }}>No response yet.</div>
-        )}
-      </div>
-
-      {/* History Section */}
-      <div style={{ marginTop: 32, maxHeight: 300, overflowY: 'auto', border: '1px solid #ccc', borderRadius: 4, background: '#fff', padding: 16, color: '#111' }}>
-        <h2>History</h2>
-        {historyError && <div style={{ color: 'red' }}>{historyError}</div>}
-        {(!history || history.length === 0) ? (
-          <div style={{ color: "#888" }}>No history yet.</div>
-        ) : (
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {history.map((h, i) => (
-              <li key={h.id} style={{ marginBottom: 12, padding: 8, border: "1px solid #eee", borderRadius: 4 }}>
-                <div><b style={{ color: '#005a00' }}>{h.method}</b> <span style={{ color: "#222" }}>{h.url}</span></div>
-                {/* Robustly display headers, show N/A if empty or whitespace */}
-                <div style={{ fontSize: 12, color: "#444" }}>
-                  Headers: <pre style={{ display: 'inline', background: '#f4f4f4', padding: '2px 4px', borderRadius: '2px' }}>{typeof h.headers === 'string' && h.headers.trim() ? h.headers : 'N/A'}</pre>
-                </div>
-                <div style={{ fontSize: 12, color: "#444" }}>Request Body: <pre style={{ display: 'inline', background: '#f4f4f4', padding: '2px 4px', borderRadius: '2px' }}>{h.requestBody || 'N/A'}</pre></div>
-                <div style={{ fontSize: 12, color: "#444" }}>Status: {h.responseStatus}</div>
-                <div style={{ fontSize: 12, color: "#444" }}>{new Date(h.createdAt).toLocaleString()}</div>
-              </li>
-            ))}
-          </ul>
-        )}
-        {/* Lazy Load Button */}
-        {hasMore && !historyError && (
-          <div style={{ marginTop: 8 }}>
-            <button onClick={() => fetchHistory(page + 1, true)} disabled={loading}>
-              {loading ? 'Loading...' : 'Load More'}
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
