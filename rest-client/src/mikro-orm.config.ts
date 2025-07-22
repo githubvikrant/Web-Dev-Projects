@@ -2,8 +2,10 @@ import { defineConfig } from '@mikro-orm/sqlite';
 import { RequestHistory } from './entities/RequestHistory';
 
 const config = defineConfig({
-  dbName: 'rest-client-db.sqlite',
-  entities: [RequestHistory], // Pass the class directly
+  dbName: process.env.NODE_ENV === 'production'
+    ? '/tmp/rest-client-db.sqlite'
+    : 'rest-client-db.sqlite',
+  entities: [RequestHistory],
   debug: process.env.NODE_ENV !== 'production',
 });
 
